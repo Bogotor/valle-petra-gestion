@@ -99,8 +99,11 @@
 - Debajo, una línea que se actualiza al escribir:
   - Cubre el saldo: "✓ Con este pago queda **pagado**" (verde de "Pagado").
   - Menor: "Quedará faltando **$30.000**" (texto secundario).
-  - Mayor que lo que falta: aviso ámbar "Es más de lo que falta ($90.000). Revisa el monto." — **no bloquea**
-    (SPEC: alertar, no impedir), pero el botón cambia a "Guardar igual $120.000".
+  - Mayor que lo que falta: aviso **rojo** (`--color-error` sobre `--color-error-bg`, 5,8:1, con ícono
+    `alert-circle` y `role="alert"`), en un solo bloque de texto que no se parte:
+    **"El monto es mayor a lo que falta"** / "Escribiste $62.000, pero solo falta $60.000. Revisa el monto antes
+    de guardar." Repite la cifra escrita para que se note el error de tipeo. **No bloquea** (SPEC: alertar, no
+    impedir), pero el botón cambia a "Guardar igual $62.000".
 - Monto vacío o $0: error bajo el campo al intentar guardar: "Escribe el monto que pagó". (La base de datos
   también exige monto > 0.)
 
