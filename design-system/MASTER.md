@@ -160,7 +160,7 @@ Sin otras sombras. Sin `backdrop-filter`.
   - **Inicio** (pantalla de entrada): agenda de hoy arriba (llegadas, salidas, por cobrar, turnos)
     y los próximos 3 días debajo. Reemplaza a "Hoy" y "Calendario" del prototipo.
   - **Nuevo** (botón central, terracota): abre una hoja con dos opciones grandes:
-    **Registrar pago** y **Nueva reserva**.
+    **Nueva reserva** (primero) y **Registrar pago** (debajo).
   - **Dashboard**: cifras del mes.
 - La pestaña activa: texto e ícono en `--color-primary` + peso 700 (no solo color).
 - Profundidad máxima: 2 niveles (lista → ficha). Botón volver arriba a la izquierda **con texto**

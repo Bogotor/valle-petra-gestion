@@ -66,9 +66,16 @@ el progreso en texto: **"Paso 2 de 4"**. Botón principal fijo abajo: **"Siguien
 └──────────────────────────────────────┘
 ```
 
-- **Fechas:** dos campos con el selector nativo de iOS (`type="date"`), uno al lado del otro. Muestran la
-  fecha en formato de lista (`viernes 30 oct`). Debajo, "2 noches" calculado.
-  - Salida igual o antes de la llegada: error rojo bajo el campo "La salida debe ser después de la llegada".
+- **Fechas:** dos campos, **Llegada** y **Salida**, uno al lado del otro ("Elegir" si están vacíos; si no,
+  la fecha en formato de lista, `viernes 30 oct`). Al tocar cualquiera se abre **un solo calendario** del mes
+  (lunes a domingo, días de 48 px, "‹ ›" para cambiar de mes) que elige el **rango en dos toques**:
+  - El **primer toque es la llegada**; el calendario sigue abierto y dice "Ahora toca el día de salida".
+  - El **segundo toque es la salida**; el calendario se cierra solo y aparece "2 noches".
+  - Si el segundo toque es igual o anterior a la llegada, ese día pasa a ser la nueva llegada (no hay error
+    posible de "salida antes de la llegada").
+  - Tocar "Salida" con llegada ya elegida permite cambiar solo la salida.
+  - Hoy va marcado con un borde; el rango elegido, con fondo terracota claro y los extremos en terracota.
+  - No se usa el selector nativo `type="date"` porque obliga a abrir dos selectores distintos.
   - Llegada en el pasado: aviso "La llegada ya pasó. ¿Es correcto?" (no bloquea: puede ser una reserva atrasada
     de anotar).
 - **Cabañas:** aparecen recién cuando hay fechas válidas. Se consulta la disponibilidad **en vivo**.
@@ -85,6 +92,9 @@ el progreso en texto: **"Paso 2 de 4"**. Botón principal fijo abajo: **"Siguien
 ## 4. Paso 2 · ¿Quién viene?
 
 - **Nombre y apellido** (`autocomplete="off"`, 16px+). Ejemplo en el placeholder: "Ej: Javiera Rivas".
+  - Solo letras (con tildes y ñ), espacios, guion, apóstrofo y punto. Si se escribe un número o un símbolo,
+    aviso rojo **al momento**: "Usa solo letras: el nombre no puede llevar números ni símbolos". Vacío al
+    tocar Siguiente: "Escribe el nombre del huésped". La misma regla se valida en el servidor.
 - **Teléfono / WhatsApp:** prefijo **+56** fijo a la izquierda del campo, `type="tel"`, `inputmode="tel"`.
   Formato automático al escribir: `9 1234 5678`. Se guarda en E.164 (`+56912345678`).
   - Número incompleto: "Faltan números: el celular tiene 9 dígitos".
@@ -123,9 +133,11 @@ muestra el aviso rojo y **"Siguiente" queda bloqueado** hasta ajustar los contad
 - **¿Dejó un abono?** Dos botones grandes: **"Sí, dejó un abono"** / **"No, reservar sin abono"**.
   - Lo normal es reservar **con** abono (la reserva se gestiona cuando se recibe un monto). La opción sin abono
     existe para excepciones.
-  - Si se elige **No**: aviso ámbar (informativo, no error): "Lo normal es pedir un abono. Sin abono, la reserva
-    igual bloquea las fechas y quedará como **Sin pago** hasta registrar un pago." En el resumen (paso 4) y en
-    Inicio se ve el chip "Sin pago".
+  - Si se elige **No**: aparece de inmediato el campo **"¿Por qué no dejó abono?"** (nota **obligatoria**,
+    ayuda: "Obligatorio. Se verá como aviso en la ficha de la reserva."; ej: "Paga todo al llegar, cliente
+    conocido"). Vacío al tocar Siguiente: borde y texto rojo "Escribe por qué no dejó abono". Sin aviso ámbar.
+    En el resumen (paso 4) se ven el chip "Sin pago" y la nota; en Inicio, el chip "Sin pago"; en la **ficha
+    de la reserva**, la nota como aviso destacado mientras la reserva siga sin pagos.
   - Sin valor por defecto: hay que elegir una de las dos.
   - Si **Sí**: se despliegan, con las mismas reglas de Registrar pago (la **fecha del abono es siempre hoy**:
     la reserva se confirma cuando se recibe el abono):
@@ -134,7 +146,8 @@ muestra el aviso rojo y **"Siguiente" queda bloqueado** hasta ajustar los contad
     - "+ Agregar comprobante (opcional)": foto o PDF hasta 10 MB.
     - Abono mayor que el total: aviso **rojo** "El abono es mayor que el total"; no bloquea (igual que en pagos).
 - Debajo, en vivo: **"Saldo al llegar: $90.000"** o "✓ Queda pagado".
-- "+ Agregar nota (opcional)": `textarea` 16px. Ej: "Celebran aniversario, piden leña extra".
+- "+ Agregar nota (opcional)": `textarea` 16px. Ej: "Celebran aniversario, piden leña extra". Solo con abono;
+  sin abono la nota ya es obligatoria (arriba) y es el mismo campo `notas` de la reserva.
 
 ## 6. Paso 4 · Revisa y guarda
 
@@ -207,7 +220,7 @@ muestra el aviso rojo y **"Siguiente" queda bloqueado** hasta ajustar los contad
 ## 11. Datos y reglas (para el backend)
 
 - `Huesped`: nombre, teléfono en E.164, email opcional. `Reserva`: unidad, llegada, salida, hora_estimada
-  opcional, n_adultos, n_ninos, canal, monto_total (CLP entero > 0), notas, `creado_por`. `Pago` (si hay abono):
+  opcional, n_adultos, n_ninos, canal, monto_total (CLP entero > 0), notas (obligatoria si no hay abono; se valida en el servidor), `creado_por`. `Pago` (si hay abono):
   monto, medio, fecha = hoy, comprobante opcional; tipo **abono**.
 - Validaciones en servidor y base de datos: `salida > llegada`, sin solape por unidad (`ExclusionConstraint`),
   capacidad según el tipo de unidad (§4.1), montos > 0. La capacidad depende de otra tabla (`Unidad`), así que no
@@ -224,7 +237,10 @@ muestra el aviso rojo y **"Siguiente" queda bloqueado** hasta ajustar los contad
 - ~~Capacidad por cabaña~~ → definida por tipo (§4.1, 29-10-2026).
 - ~~Tipos~~ → Domos: Anko, Llu Llu · Cabañas chicas: Chañar, Cachi · Cabañas grandes: Antay, Liqui (29-10-2026).
 - ~~Edad de niño~~ → **hasta 12 años** (29-10-2026).
-- ~~Reserva sin abono~~ → **se permite como excepción**, con aviso ámbar (29-10-2026).
+- ~~Reserva sin abono~~ → **se permite como excepción**, con nota obligatoria que explica por qué y que la
+  ficha muestra como aviso (29-10-2026; reemplaza al aviso ámbar).
+- Fechas en **un calendario de dos toques** (llegada → salida) en vez de dos selectores nativos (29-10-2026).
+- Nombre sin números ni símbolos (29-10-2026).
 - Huésped que vuelve: si el teléfono ya existe, ofrecer "Este teléfono es de Pedro Rojas. ¿Usar sus datos?".
   Fuera de este diseño por ahora.
 - ¿Guardar un borrador si se cierra la app a mitad de camino?
