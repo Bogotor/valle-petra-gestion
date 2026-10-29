@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Claude Code: config local por máquina
+.claude/settings.local.json
+
+# macOS
+.DS_Store

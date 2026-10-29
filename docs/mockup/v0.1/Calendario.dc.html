@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Calendario · Valle Petra</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#AA4529}a:hover{color:#A03E25}
+</style>
+</helmet>
+<div style="width: 390px; height: 1080px; box-sizing: border-box; background: #FDEEDD; color: #111832; font-family: 'Manrope', system-ui, sans-serif; display: flex; flex-direction: column; overflow: hidden">
+  <main style="flex: 1; display: flex; flex-direction: column; gap: 20px; padding: 20px 20px 28px">
+    <header style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #6B5B4E">
+          <span style="font-weight: 700; color: #111832">Valle Petra</span>
+          <span style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 13px; background: #FFFBF6; border: 1px solid #E8D5C0; font-weight: 600">
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.9-3"></path><path d="M4 4v4h4"></path><path d="M4 13a8 8 0 0 0 14.9 3"></path><path d="M20 20v-4h-4"></path></svg>
+            Beds24 · hace 2 min
+          </span>
+        </div>
+        <button aria-label="Cuenta de Claudio" style="width: 44px; height: 44px; flex: none; border-radius: 22px; border: 1px solid #E8D5C0; background: #FFFBF6; color: #111832; font-family: inherit; font-weight: 700; font-size: 14px">CL</button>
+      </div>
+      <div>
+        <h1 style="margin: 0; font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.05; letter-spacing: -0.5px">Calendario</h1>
+        <p style="margin: 6px 0 0; font-size: 15px; color: #6B5B4E">Semana del 23 al 29 de octubre</p>
+      </div>
+    </header>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+      <button aria-label="Semana anterior" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #E8D5C0; background: #FFFBF6; color: #111832; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+      </button>
+      <div style="display: flex; gap: 6px; padding: 4px; border-radius: 12px; background: #F3E3D0">
+        <button aria-pressed="true" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 9px; background: #111832; color: #FDEEDD; font-family: inherit; font-size: 13px; font-weight: 700">Semana</button>
+        <button aria-pressed="false" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: #111832; font-family: inherit; font-size: 13px; font-weight: 700">Mes</button>
+      </div>
+      <button aria-label="Semana siguiente" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #E8D5C0; background: #FFFBF6; color: #111832; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+      </button>
+    </div>
+
+    <div aria-label="Leyenda de canales" style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; font-weight: 600; color: #3E342C">
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; background: #AA4529"></span>Airbnb</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; background: #111832"></span>Booking</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; background: #E0AF7F"></span>WhatsApp</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; border: 1.5px dashed #8A5A12; box-sizing: border-box"></span>Aseo</span>
+    </div>
+
+    <section aria-label="Ocupación por unidad" style="background: #FFFBF6; border: 1px solid #E8D5C0; border-radius: 16px; padding: 10px 8px 6px">
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); align-items: center; padding-bottom: 6px">
+        <span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; margin: 0 2px; padding: 4px 0; border-radius: 8px; background: #F6DCD3; color: #A03E25; font-size: 11px; font-weight: 700; line-height: 1.25">vie<span style="font-size: 15px">23</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: #6B5B4E; font-size: 11px; font-weight: 600; line-height: 1.25">sáb<span style="font-size: 15px; color: #111832; font-weight: 700">24</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: #6B5B4E; font-size: 11px; font-weight: 600; line-height: 1.25">dom<span style="font-size: 15px; color: #111832; font-weight: 700">25</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: #6B5B4E; font-size: 11px; font-weight: 600; line-height: 1.25">lun<span style="font-size: 15px; color: #111832; font-weight: 700">26</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: #6B5B4E; font-size: 11px; font-weight: 600; line-height: 1.25">mar<span style="font-size: 15px; color: #111832; font-weight: 700">27</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: #6B5B4E; font-size: 11px; font-weight: 600; line-height: 1.25">mié<span style="font-size: 15px; color: #111832; font-weight: 700">28</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: #6B5B4E; font-size: 11px; font-weight: 600; line-height: 1.25">jue<span style="font-size: 15px; color: #111832; font-weight: 700">29</span></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); align-items: center; min-height: 54px; border-top: 1px solid #F0E2D2">
+        <span style="grid-row: 1; grid-column: 1; display: flex; flex-direction: column; padding-left: 6px; line-height: 1.2"><span style="font-size: 14px; font-weight: 700">Anku</span><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">Domo</span></span>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 2 / span 3; display: block; height: 34px; line-height: 34px; margin: 0 2px; padding: 0 8px; border-radius: 8px; background: #AA4529; color: #FFFBF6; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">González</a>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 6 / span 2; display: block; height: 34px; line-height: 34px; margin: 0 2px; padding: 0 8px; border-radius: 8px; background: #AA4529; color: #FFFBF6; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">Herrera</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); align-items: center; min-height: 54px; border-top: 1px solid #F0E2D2">
+        <span style="grid-row: 1; grid-column: 1; display: flex; flex-direction: column; padding-left: 6px; line-height: 1.2"><span style="font-size: 14px; font-weight: 700">Llu Llu</span><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">Domo</span></span>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 2 / span 2; display: block; height: 34px; line-height: 34px; margin: 0 2px 0 0; padding: 0 8px; border-radius: 0 8px 8px 0; background: #111832; color: #EEEDF0; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">‹ Soto</a>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 5 / span 2; display: block; height: 34px; line-height: 34px; margin: 0 2px; padding: 0 8px; border-radius: 8px; background: #E0AF7F; color: #111832; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">Rivas</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); align-items: center; min-height: 54px; border-top: 1px solid #F0E2D2">
+        <span style="grid-row: 1; grid-column: 1; display: flex; flex-direction: column; padding-left: 6px; line-height: 1.2"><span style="font-size: 14px; font-weight: 700">Chañar</span><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">Cabaña</span></span>
+        <span style="grid-row: 1; grid-column: 2 / span 1; display: block; height: 34px; line-height: 31px; margin: 0 2px; border-radius: 8px; border: 1.5px dashed #8A5A12; box-sizing: border-box; color: #7A4A0E; font-size: 11px; font-weight: 700; text-align: center">Aseo</span>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 4 / span 3; display: block; height: 34px; line-height: 34px; margin: 0 2px; padding: 0 8px; border-radius: 8px; background: #111832; color: #EEEDF0; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">Fuentes</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); align-items: center; min-height: 54px; border-top: 1px solid #F0E2D2">
+        <span style="grid-row: 1; grid-column: 1; display: flex; flex-direction: column; padding-left: 6px; line-height: 1.2"><span style="font-size: 14px; font-weight: 700">Antay</span><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">Cabaña</span></span>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 2 / span 2; display: block; height: 34px; line-height: 34px; margin: 0 2px; padding: 0 8px; border-radius: 8px; background: #E0AF7F; color: #111832; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">Rojas</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); align-items: center; min-height: 54px; border-top: 1px solid #F0E2D2">
+        <span style="grid-row: 1; grid-column: 1; display: flex; flex-direction: column; padding-left: 6px; line-height: 1.2"><span style="font-size: 14px; font-weight: 700">Cachi</span><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">Cabaña</span></span>
+        <a href="Reserva.dc.html" style="grid-row: 1; grid-column: 3 / span 3; display: block; height: 34px; line-height: 34px; margin: 0 2px; padding: 0 8px; border-radius: 8px; background: #111832; color: #EEEDF0; font-size: 12px; font-weight: 700; text-decoration: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis">Díaz</a>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: #6B5B4E; letter-spacing: 0.3px">Próximas llegadas</h2>
+      <ul style="list-style: none; margin: 0; padding: 0; background: #FFFBF6; border: 1px solid #E8D5C0; border-radius: 16px; overflow: hidden">
+        <li style="display: flex; align-items: center; gap: 14px; min-height: 62px; padding: 0 16px">
+          <span style="display: flex; flex-direction: column; align-items: center; width: 34px; line-height: 1.1"><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">sáb</span><span style="font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600">24</span></span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1"><span style="font-size: 15px; font-weight: 700">Cabaña Cachi</span><span style="font-size: 13px; color: #6B5B4E">Valentina Díaz · 3 noches</span></span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 13px; font-size: 12px; font-weight: 700; background: #E1E3EC; color: #111832">Booking</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 14px; min-height: 62px; padding: 0 16px; border-top: 1px solid #F0E2D2">
+          <span style="display: flex; flex-direction: column; align-items: center; width: 34px; line-height: 1.1"><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">dom</span><span style="font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600">25</span></span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1"><span style="font-size: 15px; font-weight: 700">Cabaña Chañar</span><span style="font-size: 13px; color: #6B5B4E">Andrés Fuentes · 3 noches</span></span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 13px; font-size: 12px; font-weight: 700; background: #E1E3EC; color: #111832">Booking</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 14px; min-height: 62px; padding: 0 16px; border-top: 1px solid #F0E2D2">
+          <span style="display: flex; flex-direction: column; align-items: center; width: 34px; line-height: 1.1"><span style="font-size: 11px; color: #6B5B4E; font-weight: 600">lun</span><span style="font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600">26</span></span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1"><span style="font-size: 15px; font-weight: 700">Domo Llu Llu</span><span style="font-size: 13px; color: #6B5B4E">Javiera Rivas · 2 noches</span></span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 13px; font-size: 12px; font-weight: 700; background: #F3DEC2; color: #6B4518">WhatsApp</span>
+        </li>
+      </ul>
+    </section>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <a href="NuevaReserva.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 12px; background: #111832; color: #FDEEDD; font-size: 15px; font-weight: 700; text-decoration: none">+ Nueva reserva directa</a>
+      <p style="margin: 0; font-size: 12px; color: #6B5B4E; text-align: center">Se crea en Beds24 y bloquea las fechas en Airbnb y Booking.</p>
+    </div>
+  </main>
+
+  <nav aria-label="Principal" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: #FFFBF6; border-top: 1px solid #E8D5C0; padding: 8px 12px 26px">
+    <a href="Main.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 48px; text-decoration: none; color: #6B5B4E; font-size: 12px; font-weight: 600">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      Hoy
+    </a>
+    <a href="Calendario.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 48px; text-decoration: none; color: #AA4529; font-size: 12px; font-weight: 700">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+      Calendario
+    </a>
+    <a href="Dashboard.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 48px; text-decoration: none; color: #6B5B4E; font-size: 12px; font-weight: 600">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M7 16v-4M12 16V6M17 16v-7"></path></svg>
+      Dashboard
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

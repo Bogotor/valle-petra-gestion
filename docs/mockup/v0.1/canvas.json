@@ -1,0 +1,21 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-23T14:30:00Z"},
+  "title": "Valle Petra Gestión",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 390, "h": 1680, "title": "Hoy", "is_interactive": true},
+    "Calendario.dc.html": {"x": 470, "y": 0, "w": 390, "h": 1080, "title": "Calendario", "is_interactive": true},
+    "Reserva.dc.html": {"x": 940, "y": 0, "w": 390, "h": 1180, "title": "Ficha de reserva", "is_interactive": true},
+    "RegistrarPago.dc.html": {"x": 1410, "y": 0, "w": 390, "h": 1100, "title": "Registrar pago", "is_interactive": true},
+    "Dashboard.dc.html": {"x": 1880, "y": 0, "w": 390, "h": 1280, "title": "Dashboard", "is_interactive": true},
+    "NuevaReserva.dc.html": {"x": 2350, "y": 0, "w": 390, "h": 2160, "title": "Nueva reserva directa", "is_interactive": true}
+  },
+  "order": ["Main.dc.html", "Calendario.dc.html", "Reserva.dc.html", "RegistrarPago.dc.html", "Dashboard.dc.html", "NuevaReserva.dc.html"],
+  "notes": {
+    "titulo": {"x": 0, "y": -300, "text": "Valle Petra · Gestión interna — prototipo v0.1", "kind": "title1", "maxW": 2740},
+    "datos": {"x": 2820, "y": 0, "w": 280, "text": "Todos los nombres, montos y cifras son datos de ejemplo. Toca Play en cualquier pantalla para navegar entre ellas.", "fill": "orange"}
+  },
+  "designSystems": []
+}
