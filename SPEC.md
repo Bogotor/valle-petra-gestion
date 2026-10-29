@@ -39,9 +39,10 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 2. *(Integrado en Inicio.)*
 3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, turnos, notas.
 4. **Nueva reserva directa**: nombre, teléfono (+56 por defecto), email opcional, nº de huéspedes, unidad, llegada, salida, hora estimada, canal, monto total, abono (medio, monto, comprobante), notas. Verifica disponibilidad en vivo y bloquea el guardado si hay choque.
-5. **Registrar pago**: tipo (abono/saldo), monto CLP, medio (transferencia, efectivo, tarjeta vía link de pago, payout de plataforma), fecha, comprobante opcional, nota.
+5. **Registrar pago**: tipo (abono/saldo, derivado del monto), monto CLP, medio (transferencia, efectivo, Webpay, Mercado Pago; Webpay y Mercado Pago son links de pago con tarjeta), fecha, comprobante opcional (foto o PDF, máx. 10 MB), nota. Los pagos de Airbnb y Booking llegan sincronizados desde Beds24; no se registran a mano salvo excepciones.
 6. **Dashboard mensual**: ocupación, ingreso neto por canal (descontando comisiones), ocupación por unidad, por cobrar, próximos 7 días.
 7. **Operaciones**: tarea de aseo automática al registrar check-out; turnos de hot tub y quincho.
+8. **Exportar planilla del mes** (desde el Dashboard): un archivo con las reservas y los pagos del mes, para la contabilidad. Solo los datos necesarios (sin teléfonos ni emails de huéspedes). Cada descarga queda en la auditoría. Formato por definir: CSV (se abre en Excel, sin dependencias) o `.xlsx` (requiere una dependencia nueva).
 
 **Después del MVP:**
 
@@ -72,7 +73,7 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 
 ## 6. Seguridad y privacidad
 
-- Acceso solo por Tailscale. Autenticación de Django + 2FA (TOTP). Roles: administrador y operador.
+- Acceso solo por Tailscale. Autenticación de Django + 2FA (TOTP). Un solo rol con todos los permisos de la app para todos los usuarios; cada acción queda registrada con su autor en la auditoría. El superusuario de Django (`is_superuser`, acceso completo a `/admin/`) es solo para la cuenta técnica, no para el uso diario.
 - No se guardan números de tarjeta ni datos de cuentas bancarias. Los pagos son registros manuales.
 - Comprobantes en almacenamiento privado, servidos solo a usuarios autenticados.
 - Secretos solo en `.env` (fuera de git), con `.env.example` versionado. `gitleaks` en CI.
@@ -102,3 +103,5 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 - Si las tarifas y temporadas se manejan en la app o solo en Beds24.
 - Comisiones reales por canal, para calcular el ingreso neto.
 - Política de retención de datos de huéspedes.
+- Boleta electrónica (SII): si se emite, ¿la app debe registrar el número de boleta de cada pago?
+- Qué datos de pago de Airbnb/Booking entrega la API V2 de Beds24 (permiso `bookings-financial`).

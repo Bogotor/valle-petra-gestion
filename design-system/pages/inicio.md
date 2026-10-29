@@ -79,7 +79,7 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 ### 3. Por cobrar hoy (solo si hay)
 - Una fila por reserva con saldo pendiente que llega o está alojada hoy: unidad · huésped y "Falta pagar $90.000".
 - Botón secundario **"Registrar pago"**: abre el pago con todo prellenado (monto = saldo, fecha = hoy,
-  medio = el último usado). → **2 toques** para registrar un saldo.
+  medio = Transferencia). → **2 toques** para registrar un saldo.
 - Tras guardar: aviso "Pago de $90.000 guardado · Deshacer" y la sección desaparece.
 - Si no hay nada por cobrar, la sección no aparece.
 
@@ -178,4 +178,3 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 
 - "Mostrar 7 días más" cubre hasta un mes. Si hace falta buscar disponibilidad más lejos (por ejemplo, una
   vista "por cabaña" o un buscador de fechas), es una pantalla nueva: decidir si se agrega a SPEC.md.
-- Confirmar si el "último medio de pago usado" se recuerda por usuario o global.
