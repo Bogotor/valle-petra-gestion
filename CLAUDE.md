@@ -27,7 +27,7 @@ Actualiza esta sección cuando exista el scaffold.
 - Toda llamada a Beds24 pasa por `src/beds24/`, que debe tener un modo simulado. Los tests nunca llaman a la API real.
 - Las validaciones críticas (sin solapes, montos > 0) se garantizan también en la base de datos, no solo en formularios.
 - Cada cambio de modelo va con su migración y sus tests.
-- Commits pequeños y ramas `feature/<nombre>`.
+- Commits pequeños. Trabajo diario directo en `main`; ramas `feature/<nombre>` solo para cambios grandes o experimentales.
 
 ## Antes de actuar, pregunta si vas a
 
@@ -69,4 +69,4 @@ Este proyecto también es de portafolio. Cuando tomes una decisión de diseño o
 - Acciones frecuentes en pocos toques: nueva reserva, check-in, check-out y registrar pago.
 - Claridad antes que decoración: los usuarios no son técnicos.
 - Estados de reserva indicados con color + texto, nunca solo color.
-- Interfaz en español, fechas DD-MM-AAAA, moneda CLP sin decimales ($45.000).
+- Interfaz en español, fechas DD-MM-AAAA (en listas: `viernes 23 oct`), moneda CLP sin decimales ($45.000).
