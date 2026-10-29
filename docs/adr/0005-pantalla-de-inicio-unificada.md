@@ -30,5 +30,5 @@ La barra inferior queda con 3 elementos: **Inicio** · **Nuevo** · **Dashboard*
 - ✅ La pregunta más frecuente se responde sin cambiar de pantalla.
 - ✅ Registrar pago o reserva está siempre a un toque.
 - ⚠️ Inicio es una pantalla larga: hay que priorizar el orden (lo urgente arriba) y mantener visible la barra inferior.
-- ⚠️ Inicio solo cubre el corto plazo (3 días): la disponibilidad a más largo plazo necesitará otra vista, por definir.
+- ⚠️ Por defecto Inicio muestra solo 3 días; el resto aparece a pedido con "Mostrar 7 días más" (hasta un mes). Buscar disponibilidad más lejos necesitará otra vista, por definir.
 - 📌 Actualiza `SPEC.md` §3 (módulos 1 y 2).

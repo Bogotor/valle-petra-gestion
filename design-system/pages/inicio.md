@@ -96,8 +96,12 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 - Hot tub y quincho: amenidad · unidad y horario (`20:00 – 21:30`), o "Libre". Acción "+ Agregar turno".
 
 ### 6. Próximos días
-- **Exactamente 3 días** después de hoy. Sin botón para ver más (Inicio es para el corto plazo; la
-  disponibilidad a más largo plazo se verá en otra pantalla, por definir).
+- **Por defecto, 3 días** después de hoy. Mostrar muchos días de entrada confunde: los demás se muestran
+  **solo cuando alguien los pide**.
+- Botón secundario **"Mostrar 7 días más"** al final de la lista: cada toque agrega 7 días (máximo 31 días en
+  total; al llegar al máximo el botón desaparece).
+- Cuando se están mostrando más de 3 días, aparece un botón de texto **"Mostrar menos"** que vuelve a 3 días.
+- Al salir de Inicio y volver, la lista vuelve a 3 días.
 - Una tarjeta por día. Título en formato de lista con etiqueta relativa para los dos primeros:
   `Mañana · viernes 30 oct`, `Pasado mañana · sábado 31 oct`, `domingo 1 nov`.
   A la derecha: "N de 5 ocupadas".
@@ -163,7 +167,8 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 ## 7. Datos que necesita (para el backend)
 
 - Unidades activas (orden fijo: Anku, Llu Llu, Chañar, Antay, Cachi).
-- Reservas que se cruzan con [hoy, hoy + 4 días): unidad, huésped, n_huespedes, canal, llegada, salida,
+- Reservas que se cruzan con [hoy, hoy + 4 días) al cargar; al pedir más días, el tramo siguiente
+  (hasta hoy + 32 días): unidad, huésped, n_huespedes, canal, llegada, salida,
   hora_estimada, estado, **estado de pago derivado** y **saldo** (calculados, nunca guardados).
 - Tareas de aseo pendientes por unidad.
 - Turnos de amenidades de hoy.
@@ -171,6 +176,6 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 
 ## 8. Pendientes
 
-- Dónde se consulta la disponibilidad a más de 3 días (por ejemplo, una vista "por cabaña" o un buscador
-  de fechas). Fuera del MVP de Inicio; requiere decidir si se agrega a SPEC.md.
+- "Mostrar 7 días más" cubre hasta un mes. Si hace falta buscar disponibilidad más lejos (por ejemplo, una
+  vista "por cabaña" o un buscador de fechas), es una pantalla nueva: decidir si se agrega a SPEC.md.
 - Confirmar si el "último medio de pago usado" se recuerda por usuario o global.
