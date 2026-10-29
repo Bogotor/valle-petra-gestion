@@ -140,7 +140,7 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 | Sin llegadas / salidas hoy | "No hay llegadas hoy" / "No hay salidas hoy" en una línea. |
 | Día sin movimiento | "Sin llegadas ni salidas". |
 | Sin conexión | Banda superior "Sin conexión. Los datos pueden no estar al día." Botones de registro deshabilitados con el texto "Sin conexión". |
-| Beds24 sin actualizar > 30 min | Aviso ámbar bajo el encabezado: "No se pudo actualizar desde Beds24. Las reservas nuevas de Airbnb o Booking podrían no aparecer." |
+| Beds24 sin actualizar > 10 min | Aviso ámbar bajo el encabezado: "No se pudo actualizar desde Beds24. Las reservas nuevas de Airbnb o Booking podrían no aparecer." |
 | Error al registrar | Aviso rojo en la tarjeta: "No se pudo registrar la llegada. Intenta de nuevo." La tarjeta no cambia de estado. |
 
 ---
@@ -166,9 +166,9 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 
 ## 7. Datos que necesita (para el backend)
 
-- Unidades activas (orden fijo: Anku, Llu Llu, Chañar, Antay, Cachi).
+- Unidades activas (orden fijo: Anko, Llu Llu, Chañar, Antay, Cachi; Liqui cuando vuelva de renovación).
 - Reservas que se cruzan con [hoy, hoy + 4 días) al cargar; al pedir más días, el tramo siguiente
-  (hasta hoy + 32 días): unidad, huésped, n_huespedes, canal, llegada, salida,
+  (hasta hoy + 32 días): unidad, huésped, n_adultos, n_ninos, canal, llegada, salida,
   hora_estimada, estado, **estado de pago derivado** y **saldo** (calculados, nunca guardados).
 - Tareas de aseo pendientes por unidad.
 - Turnos de amenidades de hoy.

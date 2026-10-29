@@ -7,7 +7,7 @@ El porqué de cada decisión, con las alternativas descartadas, está en `docs/a
 ## 1. Contexto
 
 - Valle Petra: retreat boutique familiar en Vicuña, Valle del Elqui (Chile).
-- Unidades activas: Domo Anku, Domo Llu Llu, Cabaña Chañar, Cabaña Antay, Cabaña Cachi (una sexta cabaña en renovación).
+- Unidades activas: Domo Anko y Domo Llu Llu (domos), Cabaña Chañar y Cabaña Cachi (cabañas chicas), Cabaña Antay (cabaña grande). Una sexta, Cabaña Liqui (cabaña grande), está en renovación.
 - Amenidades con turnos: hot tub y quincho.
 - Usuarios: máximo 4 personas de la familia, todas con iPhone. Uso 100% interno, nunca público.
 - Canales de reserva: Airbnb, Booking y reservas directas (WhatsApp, Instagram, teléfono, presencial).
@@ -17,7 +17,7 @@ El porqué de cada decisión, con las alternativas descartadas, está en `docs/a
 | Decisión | Detalle |
 |---|---|
 | Enfoque híbrido | Beds24 (PMS) es la fuente de verdad del calendario y la conexión oficial con Airbnb/Booking. La app propia es la fuente de verdad de la operación (check-in/out, pagos manuales, aseo, turnos, dashboard). |
-| Sincronización | Polling a la API V2 de Beds24 cada 10–15 min. Sin webhooks, porque la app no se expone a internet. Upsert idempotente por ID externo de Beds24. |
+| Sincronización | Polling a la API V2 de Beds24 cada 2 min, pidiendo solo los cambios desde la última consulta; además al abrir Inicio y antes de guardar una reserva. Sin webhooks, porque la app no se expone a internet. Upsert idempotente por ID externo de Beds24. |
 | Reservas directas | Se crean en la app y se envían a Beds24 vía API, para que las fechas se bloqueen en Airbnb y Booking. |
 | Stack | Python 3.12+, Django, PostgreSQL, Docker Compose. Frontend como PWA servida por Django, instalable desde Safari. |
 | Acceso | Solo vía Tailscale (plan Personal). HTTPS con Tailscale Serve (certificado `*.ts.net`). Nada expuesto a internet. |
@@ -27,7 +27,7 @@ El porqué de cada decisión, con las alternativas descartadas, está en `docs/a
 ### Limitaciones conocidas
 
 - Sin internet, o con el mini PC o Tailscale caídos, nadie puede usar la app hasta que se restablezcan. El calendario de las OTAs sigue protegido, porque Beds24 sincroniza los canales por su cuenta.
-- Por el polling, una reserva nueva de Airbnb o Booking puede tardar hasta ~15 minutos en aparecer en la app (ADR 0004).
+- Por el polling, una reserva nueva de Airbnb o Booking puede tardar hasta ~2 minutos en aparecer en la app (ADR 0004). No genera reservas duplicadas: antes de guardar una reserva directa se confirma la disponibilidad con Beds24 en ese momento.
 
 ## 3. Módulos (MVP)
 
@@ -50,9 +50,12 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 
 ## 4. Modelo de datos inicial
 
-- `Unidad`: nombre, tipo (domo/cabaña), capacidad, activa.
+- `Unidad`: nombre, tipo (`domo` / `cabana_chica` / `cabana_grande`), activa. La capacidad depende del tipo:
+  - Domo y cabaña chica: hasta 3 adultos sin niños, o hasta 2 adultos con hasta 2 niños.
+  - Cabaña grande: hasta 5 personas en total, en cualquier combinación.
+  - Siempre al menos 1 adulto. Niño = hasta 12 años.
 - `Huesped`: nombre, teléfono (E.164), email opcional.
-- `Reserva`: id_externo (único, de Beds24), unidad (FK, PROTECT), huesped (FK), canal, llegada, salida, hora_estimada, n_huespedes, monto_total (CLP entero), estado, notas, version, creado_por, timestamps.
+- `Reserva`: id_externo (único, de Beds24), unidad (FK, PROTECT), huesped (FK), canal, llegada, salida, hora_estimada, n_adultos, n_ninos, monto_total (CLP entero), estado, notas, version, creado_por, timestamps.
 - `Pago`: reserva (FK, PROTECT), tipo, medio, monto (CLP entero), fecha, comprobante (opcional), registrado_por, nota.
 - `TurnoAmenidad`: amenidad (hot tub/quincho), reserva (FK opcional), inicio, fin.
 - `TareaAseo`: unidad, reserva, estado, completada_por, completada_en.
@@ -68,7 +71,8 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 - Check-out solo después de check-in. El check-out genera una tarea de aseo.
 - Turnos sin solape por amenidad y dentro de las fechas de la reserva.
 - Bloqueo optimista con campo `version` para evitar que dos usuarios se pisen cambios.
-- `n_huespedes` entre 1 y la capacidad de la unidad.
+- Adultos y niños dentro de la capacidad del tipo de unidad (ver §4); al menos 1 adulto. Se valida también en la base de datos.
+- En reservas directas, el abono se registra con fecha del día en que se crea la reserva.
 - En reservas de Airbnb/Booking, los campos sincronizados (fechas, canal, monto) se editan en Beds24, no en la app.
 
 ## 6. Seguridad y privacidad
@@ -99,7 +103,6 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 ## 9. Pendientes por definir
 
 - Sistema operativo y procesador del mini PC.
-- Capacidad máxima por unidad.
 - Si las tarifas y temporadas se manejan en la app o solo en Beds24.
 - Comisiones reales por canal, para calcular el ingreso neto.
 - Política de retención de datos de huéspedes.
