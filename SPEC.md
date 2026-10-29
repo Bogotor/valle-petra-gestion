@@ -33,8 +33,10 @@ El porqué de cada decisión, con las alternativas descartadas, está en `docs/a
 
 Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1/`, exportado desde claude.ai. No es la base visual: el diseño se rehace según la sección Diseño de `CLAUDE.md`.
 
-1. **Hoy**: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, turnos del día.
-2. **Calendario**: vista semanal por unidad, color por canal, marca de aseo pendiente.
+1. **Inicio** (pantalla de entrada; une "Hoy" y "Calendario" del prototipo):
+   - Agenda de hoy: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, turnos del día.
+   - Calendario semanal por unidad, con estado de pago y marca de aseo pendiente (el canal se indica con texto, no solo con color).
+2. *(Integrado en Inicio.)*
 3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, turnos, notas.
 4. **Nueva reserva directa**: nombre, teléfono (+56 por defecto), email opcional, nº de huéspedes, unidad, llegada, salida, hora estimada, canal, monto total, abono (medio, monto, comprobante), notas. Verifica disponibilidad en vivo y bloquea el guardado si hay choque.
 5. **Registrar pago**: tipo (abono/saldo), monto CLP, medio (transferencia, efectivo, tarjeta vía link de pago, payout de plataforma), fecha, comprobante opcional, nota.
