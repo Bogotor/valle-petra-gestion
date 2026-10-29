@@ -35,7 +35,7 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 
 1. **Inicio** (pantalla de entrada; une "Hoy" y "Calendario" del prototipo):
    - Agenda de hoy: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, turnos del día.
-   - Calendario semanal por unidad, con estado de pago y marca de aseo pendiente (el canal se indica con texto, no solo con color).
+   - Próximos 3 días: por cada día, quién llega, quién sale, qué falta cobrar y qué unidades quedan libres.
 2. *(Integrado en Inicio.)*
 3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, turnos, notas.
 4. **Nueva reserva directa**: nombre, teléfono (+56 por defecto), email opcional, nº de huéspedes, unidad, llegada, salida, hora estimada, canal, monto total, abono (medio, monto, comprobante), notas. Verifica disponibilidad en vivo y bloquea el guardado si hay choque.

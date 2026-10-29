@@ -11,7 +11,9 @@ Parte de los usuarios tiene alrededor de 60 años y no es técnica: cada pestañ
 
 ## Decisión
 
-Una sola pantalla de entrada, **Inicio**: la agenda de hoy arriba y el calendario semanal por unidad debajo.
+Una sola pantalla de entrada, **Inicio**: la agenda de hoy arriba y los **próximos 3 días** debajo, como lista por día (quién llega, quién sale y qué queda libre).
+
+> **Actualización (29-10-2026):** la primera versión usaba un calendario semanal en grilla (días × cabañas). Al probar el prototipo resultó difícil de leer —obligaba a cruzar filas con columnas y a interpretar íconos con una leyenda—, así que se reemplazó por la lista de 3 días.
 
 La barra inferior queda con 3 elementos: **Inicio** · **Nuevo** · **Dashboard**. "Nuevo" es un botón central que abre *Registrar pago* o *Nueva reserva*, para que ambas acciones estén a un toque desde cualquier pantalla.
 
@@ -28,5 +30,5 @@ La barra inferior queda con 3 elementos: **Inicio** · **Nuevo** · **Dashboard*
 - ✅ La pregunta más frecuente se responde sin cambiar de pantalla.
 - ✅ Registrar pago o reserva está siempre a un toque.
 - ⚠️ Inicio es una pantalla larga: hay que priorizar el orden (lo urgente arriba) y mantener visible la barra inferior.
-- ⚠️ El calendario semanal debe caber en ~390 px sin bajar de 48 px por área táctil; su diseño se resuelve en `design-system/pages/inicio.md`.
+- ⚠️ Inicio solo cubre el corto plazo (3 días): la disponibilidad a más largo plazo necesitará otra vista, por definir.
 - 📌 Actualiza `SPEC.md` §3 (módulos 1 y 2).

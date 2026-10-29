@@ -157,7 +157,7 @@ Sin otras sombras. Sin `backdrop-filter`.
 - **Barra inferior fija** con 3 elementos, cada uno con ícono **y** texto:
   **Inicio** · **Nuevo** · **Dashboard**.
   - **Inicio** (pantalla de entrada): agenda de hoy arriba (llegadas, salidas, por cobrar, turnos)
-    y calendario de la semana por unidad debajo. Reemplaza a "Hoy" y "Calendario" del prototipo.
+    y los próximos 3 días debajo. Reemplaza a "Hoy" y "Calendario" del prototipo.
   - **Nuevo** (botón central, terracota): abre una hoja con dos opciones grandes:
     **Registrar pago** y **Nueva reserva**.
   - **Dashboard**: cifras del mes.
