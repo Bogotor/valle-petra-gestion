@@ -3,10 +3,15 @@
 > Reglas específicas de esta pantalla. **Prevalecen** sobre `design-system/MASTER.md` solo en lo que se indica
 > en la sección "Diferencias con MASTER"; en todo lo demás rige MASTER.
 
-- **Estado:** borrador, pendiente de aprobación.
+- **Estado:** aprobado (v2, tras probar el prototipo v0.2).
 - **Módulo de SPEC:** §3.5 Registrar pago.
-- **Objetivo:** anotar un pago recibido en **2 toques** cuando se llega desde una reserva, sin pedir nada que la
-  app ya sepa.
+- **Objetivo:** anotar un pago recibido de forma simple: **elegir la reserva → escribir el monto → guardar**.
+  La fecha y el medio vienen por defecto; el monto lo escribe siempre la persona.
+
+### Historial
+- **v1:** desde Por cobrar se saltaba la lista y el monto venía prellenado con el saldo.
+- **v2:** siempre se parte por la lista de reservas con saldo pendiente, y el monto empieza vacío (muestra "0" en
+  gris). Al probar el prototipo, un monto ya escrito podía confundir: se corre el riesgo de guardar sin mirarlo.
 - **Regla de seguridad:** es un **registro manual**. Nunca se piden ni se guardan números de tarjeta ni datos de
   cuentas bancarias.
 
@@ -14,13 +19,13 @@
 
 ## 1. Cómo se llega
 
-| Desde | Qué viene prellenado | Toques hasta guardar |
+| Desde | Primer paso | Toques hasta guardar |
 |---|---|---|
-| Inicio › Por cobrar › "Registrar pago" | Reserva, monto = saldo, fecha = hoy, medio = el de por defecto | **2** |
-| Ficha de reserva › "Registrar pago" | Igual | **2** |
-| Barra › "Nuevo" › "Registrar pago" | Nada: primero se elige la reserva (paso 0) | 4 |
+| Inicio › Por cobrar › "Registrar pago" | Lista de reservas con saldo pendiente (paso 0) | elegir + escribir monto + guardar |
+| Barra › "Nuevo" › "Registrar pago" | Igual | 1 más (abrir "Nuevo") |
+| Ficha de reserva › "Registrar pago" | Directo al formulario de esa reserva (ya está elegida) | escribir monto + guardar |
 
-### Paso 0: elegir la reserva (solo si se entra desde "Nuevo")
+### Paso 0: elegir la reserva (desde Inicio y desde "Nuevo")
 
 ```
 ┌──────────────────────────────────────┐
@@ -45,7 +50,7 @@
   es casi siempre la que se busca.
 - Buscador por nombre del huésped (`type="search"`, 16px). "Mostrar todas las reservas" abre el resto
   (divulgación progresiva).
-- Tocar una reserva lleva al formulario con todo prellenado.
+- Tocar una reserva lleva al formulario de esa reserva, con el monto vacío.
 
 ---
 
@@ -61,7 +66,7 @@
 │ Falta pagar $90.000                   │
 ├──────────────────────────────────────┤
 │ ¿Cuánto pagó?                         │  2. Monto
-│ ┌ $ │ 90.000                        ┐ │
+│ ┌ $ │ 0  (gris, vacío)              ┐ │
 │ [Todo lo que falta · $90.000]         │
 │ ✓ Con este pago queda pagado          │
 ├──────────────────────────────────────┤
@@ -81,13 +86,14 @@
 
 ### 1. Resumen de la reserva (solo lectura)
 - Unidad · huésped, rango de fechas en formato de lista, total, pagado y **"Falta pagar $90.000"** destacado.
-- Si se llegó desde "Nuevo", un enlace "Cambiar reserva" vuelve al paso 0.
+- Un enlace "Cambiar reserva" vuelve al paso 0.
 
 ### 2. Monto
 - Etiqueta en lenguaje simple: **"¿Cuánto pagó?"**.
 - Campo grande (28px/700, `tabular-nums`), `$` fuera del campo, `type="text"` + `inputmode="numeric"` +
   `autocomplete="off"`. Los puntos de miles aparecen solos al escribir.
-- **Prellenado con el saldo.** Si se borra, el botón **"Todo lo que falta · $90.000"** lo repone en 1 toque.
+- **Empieza vacío**, con "0" en gris como referencia (placeholder). Nunca viene escrito: lo escribe la persona.
+- Atajo opcional: el botón **"Todo lo que falta · $90.000"** escribe el saldo en 1 toque, solo si la persona lo toca.
 - **Abono o saldo se deduce solo; no se pregunta.** Si el monto cubre lo que falta, se guarda como *saldo*;
   si es menor, como *abono*. (SPEC pide el tipo; el usuario no tiene que elegirlo: un campo menos.)
 - Debajo, una línea que se actualiza al escribir:
@@ -146,7 +152,7 @@
 | Error del servidor | Aviso rojo sobre el botón: "No se pudo guardar el pago. Intenta de nuevo." El formulario queda igual. |
 | Otro usuario registró un pago en la misma reserva mientras tanto | "Alguien registró un pago en esta reserva hace un momento. Ahora falta $X." y se recalcula lo que falta antes de guardar (bloqueo optimista, SPEC §5). |
 | Comprobante muy grande o de tipo no permitido | "El archivo debe ser una foto o un PDF de hasta 10 MB." |
-| Cancelar con datos escritos | Si cambió algo respecto a lo prellenado: "¿Salir sin guardar el pago?" (Salir / Seguir editando). Si no cambió nada, sale directo. |
+| Cancelar con datos escritos | Si escribió un monto o cambió algo: "¿Salir sin guardar el pago?" (Salir / Seguir editando). Si no cambió nada, sale directo. |
 
 ---
 
@@ -156,8 +162,7 @@
 - La línea "Con este pago queda pagado / Quedará faltando" es `aria-live="polite"`.
 - Errores con `role="alert"` y asociados al campo con `aria-describedby`.
 - Orden de foco: monto → medio → fecha → opcionales → guardar.
-- Al abrir el formulario, el foco va al monto **sin abrir el teclado** (el monto ya viene lleno: lo normal es
-  solo revisar y guardar).
+- Al abrir el formulario, el foco va al monto y se abre el teclado numérico: es lo primero que hay que escribir.
 
 ---
 

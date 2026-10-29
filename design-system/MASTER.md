@@ -14,7 +14,8 @@
 
 1. **Una acción principal por pantalla**, siempre visible y al alcance del pulgar (parte inferior).
 2. **Pocos toques:** registrar un pago o una reserva parte desde cualquier pantalla y usa valores por defecto
-   (fecha = hoy, monto = saldo pendiente, medio = el último usado). Meta: registrar un pago del saldo en 3 toques.
+   cuando ayudan (fecha = hoy, medio = Transferencia). **Los montos nunca vienen prellenados**: los escribe la
+   persona, para que no se guarde una cifra sin haberla mirado.
 3. **Nada escondido:** sin menú hamburguesa, sin acciones solo con deslizar o mantener presionado.
    Todo ícono va acompañado de texto.
 4. **Lenguaje simple:** "Pagado", "Falta pagar $90.000", "Llega hoy". Nunca jerga técnica

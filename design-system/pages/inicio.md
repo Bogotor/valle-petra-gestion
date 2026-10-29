@@ -78,8 +78,8 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 
 ### 3. Por cobrar hoy (solo si hay)
 - Una fila por reserva con saldo pendiente que llega o está alojada hoy: unidad · huésped y "Falta pagar $90.000".
-- Botón secundario **"Registrar pago"**: abre el pago con todo prellenado (monto = saldo, fecha = hoy,
-  medio = Transferencia). → **2 toques** para registrar un saldo.
+- Botón secundario **"Registrar pago"**: abre Registrar pago en la **lista de reservas con saldo pendiente**;
+  se elige la reserva y se escribe el monto (ver `registrar-pago.md`).
 - Tras guardar: aviso "Pago de $90.000 guardado · Deshacer" y la sección desaparece.
 - Si no hay nada por cobrar, la sección no aparece.
 
@@ -123,11 +123,11 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 
 | Tarea | Camino | Toques |
 |---|---|---|
-| Registrar el saldo de quien llega hoy | Por cobrar › "Registrar pago" → "Guardar pago" | **2** |
+| Registrar un pago | Por cobrar › "Registrar pago" → elegir reserva → escribir monto → "Guardar pago" | 3 + monto |
 | Registrar una llegada / salida | "Registrar llegada" / "Registrar salida" | **1** (+ Deshacer) |
 | Nueva reserva en una noche libre de los próximos 3 días | Botón de unidad libre → formulario → "Guardar" | 1 + formulario |
 | Nueva reserva cualquiera | "Nuevo" → "Nueva reserva" → formulario | 2 + formulario |
-| Registrar un pago cualquiera | "Nuevo" → "Registrar pago" → elegir reserva → "Guardar pago" | 4 |
+| Registrar un pago desde cualquier pantalla | "Nuevo" → "Registrar pago" → elegir reserva → escribir monto → "Guardar pago" | 4 + monto |
 | Ver una reserva | Tarjeta o fila | 1 |
 
 ---
