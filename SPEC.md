@@ -1,7 +1,8 @@
-# Valle Petra Gestión — Especificación v0.1
+# Valle Petra Gestión — Especificación v0.2
 
 App interna (PWA) para gestionar reservas, check-in/out, pagos y operaciones de Valle Petra.
 También es un proyecto de portafolio (backend Python + seguridad).
+El porqué de cada decisión, con las alternativas descartadas, está en `docs/adr/`.
 
 ## 1. Contexto
 
@@ -23,9 +24,14 @@ También es un proyecto de portafolio (backend Python + seguridad).
 | Entornos | Desarrollo en MacBook Pro (Apple Silicon/ARM). Producción en mini PC propio siempre encendido. |
 | Permisos Beds24 | Solo los scopes de la API V2 estrictamente necesarios (mínimo privilegio). |
 
+### Limitaciones conocidas
+
+- Sin internet, o con el mini PC o Tailscale caídos, nadie puede usar la app hasta que se restablezcan. El calendario de las OTAs sigue protegido, porque Beds24 sincroniza los canales por su cuenta.
+- Por el polling, una reserva nueva de Airbnb o Booking puede tardar hasta ~15 minutos en aparecer en la app (ADR 0004).
+
 ## 3. Módulos (MVP)
 
-Referencia visual: prototipo en claude.ai (canvas "Valle Petra Gestión").
+Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1/`, exportado desde claude.ai. No es la base visual: el diseño se rehace según la sección Diseño de `CLAUDE.md`.
 
 1. **Hoy**: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, turnos del día.
 2. **Calendario**: vista semanal por unidad, color por canal, marca de aseo pendiente.
@@ -34,6 +40,10 @@ Referencia visual: prototipo en claude.ai (canvas "Valle Petra Gestión").
 5. **Registrar pago**: tipo (abono/saldo), monto CLP, medio (transferencia, efectivo, tarjeta vía link de pago, payout de plataforma), fecha, comprobante opcional, nota.
 6. **Dashboard mensual**: ocupación, ingreso neto por canal (descontando comisiones), ocupación por unidad, por cobrar, próximos 7 días.
 7. **Operaciones**: tarea de aseo automática al registrar check-out; turnos de hot tub y quincho.
+
+**Después del MVP:**
+
+- **Notificaciones push** de la PWA, por ejemplo "llegada hoy" o "abono pendiente". En iOS 16.4+ solo funcionan con la app instalada en la pantalla de inicio (ADR 0003).
 
 ## 4. Modelo de datos inicial
 
@@ -72,7 +82,7 @@ Referencia visual: prototipo en claude.ai (canvas "Valle Petra Gestión").
 
 - **Desarrollo (MacBook)**: Docker Compose con PostgreSQL, datos ficticios (seeds), cliente de Beds24 en modo simulado con fixtures. Los tests nunca llaman a la API real.
 - **Producción (mini PC)**: Docker Compose, imágenes construidas en el propio mini PC (evita problemas ARM vs x86).
-- **GitHub**: repo privado. CI con pytest, ruff y gitleaks en cada push.
+- **GitHub**: repo público (portafolio): sin secretos, datos reales ni detalles de infraestructura. CI con pytest, ruff y gitleaks en cada push.
 
 ## 8. Fases
 
@@ -81,7 +91,7 @@ Referencia visual: prototipo en claude.ai (canvas "Valle Petra Gestión").
 2. Pantallas de la PWA según el prototipo.
 3. Beds24: lectura por polling; después, creación de reservas directas.
 4. Despliegue en mini PC: Docker, Tailscale Serve, backups, logs a Wazuh.
-5. Portafolio: README, ADRs, demo pública separada con datos ficticios.
+5. Portafolio: README, ADRs y demo pública separada de producción: otro servidor y otra base de datos, sin secretos compartidos y con datos ficticios que se resetean cada noche. Sus logs van a Wazuh para documentar detecciones reales de escaneos y ataques.
 
 ## 9. Pendientes por definir
 
