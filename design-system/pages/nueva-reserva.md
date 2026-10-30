@@ -120,7 +120,7 @@ el progreso en texto: **"Paso 2 de 4"**. Botón principal fijo abajo: **"Siguien
 |---|---|---|---|---|
 | **Domo** | Anko, Llu Llu | Hasta 3 adultos sin niños, **o** hasta 2 adultos con hasta 2 niños | 3+0, 2+2, 2+1, 1+2 | 3+1, 2+3, 4+0 |
 | **Cabaña chica** | Chañar, Cachi | Igual que el domo | 3+0, 2+2 | 3+1, 4+0 |
-| **Cabaña grande** | Antay, Liqui (en renovación) | Hasta 5 personas en total, cualquier combinación | 5+0, 3+2, 1+4 | 4+2, 6+0 |
+| **Cabaña grande** | Antay, Liqui | Hasta 5 personas en total, cualquier combinación | 5+0, 3+2, 1+4 | 4+2, 6+0 |
 
 Siempre al menos 1 adulto. Si se cambia de cabaña en el paso 1 y las personas ya elegidas no caben, el paso 2
 muestra el aviso rojo y **"Siguiente" queda bloqueado** hasta ajustar los contadores.

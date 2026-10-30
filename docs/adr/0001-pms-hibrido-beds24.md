@@ -14,7 +14,9 @@ Valle Petra tiene 5 unidades que se venden por Airbnb, Booking y reservas direct
 
 Usar **Beds24** como PMS y channel manager, como fuente de verdad del calendario y de la conexión con Airbnb y Booking.
 
-La app propia es la fuente de verdad de la **operación**: check-in/out, pagos manuales, aseo, turnos de hot tub y quincho, y dashboard. Se conecta a Beds24 por su API V2.
+La app propia es la fuente de verdad de la **operación**: check-in/out, pagos manuales, aseo, turnos de hot tub y quincho, y dashboard.
+
+> **Actualización (29-10-2026):** el hot tub se reemplazó por dos tinajas (con costo). Los servicios con turno son quincho y tinajas (SPEC §1). Cabaña Liqui volvió a estar activa: hoy son 6 unidades. Se conecta a Beds24 por su API V2.
 
 ## Alternativas consideradas
 

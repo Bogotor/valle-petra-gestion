@@ -117,6 +117,8 @@
 - **Reservas de Airbnb y Booking:** su pago lo cobra la plataforma y debería llegar sincronizado desde Beds24,
   no registrarse a mano. En esas reservas, "Registrar pago" no aparece en Inicio ni en la ficha; solo queda
   accesible desde la ficha, en "Más opciones", para casos excepcionales (por ejemplo, un cobro extra en el lugar).
+  **Excepción: tinajas.** Se cobran en el lugar, así que si una reserva de Airbnb/Booking tiene tinajas por
+  pagar, sí aparece en la lista de Registrar pago y en Por cobrar, por ese monto (`servicios.md` §5).
   *Por verificar en la fase 3:* qué datos de pago entrega la API V2 de Beds24 (requiere el permiso
   `bookings-financial`).
 

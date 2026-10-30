@@ -7,8 +7,8 @@ El porqué de cada decisión, con las alternativas descartadas, está en `docs/a
 ## 1. Contexto
 
 - Valle Petra: retreat boutique familiar en Vicuña, Valle del Elqui (Chile).
-- Unidades activas: Domo Anko y Domo Llu Llu (domos), Cabaña Chañar y Cabaña Cachi (cabañas chicas), Cabaña Antay (cabaña grande). Una sexta, Cabaña Liqui (cabaña grande), está en renovación.
-- Amenidades con turnos: hot tub y quincho.
+- Unidades activas (6): Domo Anko y Domo Llu Llu (domos), Cabaña Chañar y Cabaña Cachi (cabañas chicas), Cabaña Antay y Cabaña Liqui (cabañas grandes). Liqui volvió a estar activa el 29-10-2026.
+- Servicios con turno, solo para huéspedes: **quincho** (sin costo) y **2 tinajas** (con costo, que se suma a la reserva). No hay hot tub.
 - Usuarios: máximo 4 personas de la familia, todas con iPhone. Uso 100% interno, nunca público.
 - Canales de reserva: Airbnb, Booking y reservas directas (WhatsApp, Instagram, teléfono, presencial).
 
@@ -34,15 +34,15 @@ El porqué de cada decisión, con las alternativas descartadas, está en `docs/a
 Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1/`, exportado desde claude.ai. No es la base visual: el diseño se rehace según la sección Diseño de `CLAUDE.md`.
 
 1. **Inicio** (pantalla de entrada; une "Hoy" y "Calendario" del prototipo):
-   - Agenda de hoy: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, turnos del día.
+   - Agenda de hoy: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, servicios del día (quincho y tinajas).
    - Próximos 3 días: por cada día, quién llega, quién sale, qué falta cobrar y qué unidades quedan libres.
 2. *(Integrado en Inicio.)*
-3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, turnos, notas. Permite **cancelar** una reserva directa confirmada: pide confirmación y motivo, y libera las fechas en Beds24.
+3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, servicios (quincho y tinajas), notas. Permite **cancelar** una reserva directa confirmada: pide confirmación y motivo, y libera las fechas en Beds24.
 4. **Nueva reserva directa**: nombre, teléfono (+56 por defecto), email opcional, nº de huéspedes, unidad, llegada, salida, hora estimada, canal, monto total, abono (medio, monto, comprobante), notas. Verifica disponibilidad en vivo y bloquea el guardado si hay choque.
 5. **Registrar pago**: tipo (abono/saldo, derivado del monto), monto CLP, medio (transferencia, efectivo, Webpay, Mercado Pago; Webpay y Mercado Pago son links de pago con tarjeta), fecha, comprobante opcional (foto o PDF, máx. 10 MB), nota. Los pagos de Airbnb y Booking llegan sincronizados desde Beds24; no se registran a mano salvo excepciones.
-6. **Dashboard mensual**: ocupación, ingreso neto por canal (descontando comisiones), ocupación por unidad, por cobrar, próximos 7 días.
-7. **Operaciones**: tarea de aseo automática al registrar check-out; turnos de hot tub y quincho.
-8. **Exportar planilla del mes** (desde el Dashboard): un archivo con las reservas y los pagos del mes, para la contabilidad. Solo los datos necesarios (sin teléfonos ni emails de huéspedes). Cada descarga queda en la auditoría. Formato por definir: CSV (se abre en Excel, sin dependencias) o `.xlsx` (requiere una dependencia nueva).
+6. **Dashboard mensual**: ingresos del mes (estadías por fecha de llegada, menos comisiones, más tinajas), ocupación, ingreso neto por canal, ocupación por unidad, por cobrar, servicios del mes, próximos 7 días.
+7. **Operaciones**: tarea de aseo automática al registrar check-out; servicios con turno (quincho y tinajas) a hora libre, sin solapes por recurso. La tinaja se cobra y su precio se suma a lo que falta pagar de la reserva.
+8. **Exportar planilla del mes** (desde el Dashboard): un archivo **Excel (`.xlsx`)** con hojas de resumen, reservas, pagos y servicios del mes, para la contabilidad. Solo los datos necesarios (sin teléfonos ni emails de huéspedes). Textos escritos siempre como texto, nunca como fórmula (inyección de fórmulas). Cada descarga queda en la auditoría. Dependencia prevista: `openpyxl` (se confirma al implementar).
 
 **Después del MVP:**
 
@@ -57,7 +57,8 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 - `Huesped`: nombre, teléfono (E.164), email opcional.
 - `Reserva`: id_externo (único, de Beds24), unidad (FK, PROTECT), huesped (FK), canal, llegada, salida, hora_estimada, n_adultos, n_ninos, monto_total (CLP entero), estado (confirmada / en_curso / terminada / cancelada), motivo_cancelacion, notas, version, creado_por, timestamps.
 - `Pago`: reserva (FK, PROTECT), tipo, medio, monto (CLP entero), fecha, comprobante (opcional), registrado_por, nota.
-- `TurnoAmenidad`: amenidad (hot tub/quincho), reserva (FK opcional), inicio, fin.
+- `Servicio`: nombre (Quincho, Tinaja 1, Tinaja 2), tipo (`quincho` / `tinaja`), se_cobra, activo.
+- `TurnoServicio`: servicio (FK, PROTECT), reserva (FK, obligatoria), inicio, fin, monto (CLP entero; > 0 si se cobra, 0 si no), creado_por.
 - `TareaAseo`: unidad, reserva, estado, completada_por, completada_en.
 - `RegistroAuditoria`: usuario, acción, objeto, cambios, fecha.
 
@@ -66,14 +67,15 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 - `salida > llegada`.
 - Sin reservas solapadas en la misma unidad, garantizado en la base de datos (`ExclusionConstraint` de PostgreSQL sobre el rango de fechas + unidad), no solo en el formulario.
 - Montos en CLP como enteros, siempre > 0. Nunca float.
-- Saldo = total − suma de pagos. Se calcula, nunca se guarda a mano.
+- Saldo (lo que falta pagar) = monto de la estadía + suma de los servicios cobrados − suma de pagos. Se calcula, nunca se guarda a mano.
 - Estado de pago derivado: pendiente / abonado / pagado. Alertar si los pagos superan el total.
 - Check-out solo después de check-in. El check-out genera una tarea de aseo.
-- Turnos sin solape por amenidad y dentro de las fechas de la reserva.
+- Turnos de servicio sin solape por recurso (`ExclusionConstraint` sobre servicio + rango horario), dentro de las fechas de la reserva y del horario de funcionamiento (10:00 a 23:00). Precio habitual de la tinaja: $20.000 a $25.000 cada 30 min (ayuda, no se prellena).
 - Bloqueo optimista con campo `version` para evitar que dos usuarios se pisen cambios.
 - Adultos y niños dentro de la capacidad del tipo de unidad (ver §4); al menos 1 adulto. Se valida también en la base de datos.
 - En reservas directas, el abono se registra con fecha del día en que se crea la reserva.
 - En reservas de Airbnb/Booking, los campos sincronizados (fechas, canal, monto) se editan en Beds24, no en la app.
+- Cancelaciones de Airbnb/Booking: llegan desde Beds24 en la consulta periódica (cambio de estado de la reserva) y la reserva pasa a cancelada en la app: libera la cabaña y deja de contar en Inicio, por cobrar y el dashboard.
 - Cancelar: solo reservas directas confirmadas, con motivo obligatorio. Libera las fechas en Beds24 (con reintentos si falla). Los pagos quedan registrados; las devoluciones se hacen fuera de la app. Una reserva cancelada no cuenta en por cobrar ni en el dashboard.
 
 ## 6. Seguridad y privacidad
@@ -109,3 +111,4 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 - Política de retención de datos de huéspedes.
 - Boleta electrónica (SII): si se emite, ¿la app debe registrar el número de boleta de cada pago?
 - Qué datos de pago de Airbnb/Booking entrega la API V2 de Beds24 (permiso `bookings-financial`).
+- Cancelaciones de Airbnb/Booking con penalidad (el huésped cancela pero igual se recibe una parte): verificar si Beds24 informa ese monto; si lo informa, cuenta como ingreso del mes de la reserva.

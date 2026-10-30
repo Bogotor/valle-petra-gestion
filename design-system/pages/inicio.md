@@ -27,7 +27,7 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 │ Hoy                                   │
 │ jueves 29 oct                         │
 ├──────────────────────────────────────┤
-│ 3 de 5 ocupadas esta noche            │  2. Resumen
+│ 3 de 6 ocupadas esta noche            │  2. Resumen
 │ [ Llegan 2 ]  [ Salen 1 ]             │
 ├──────────────────────────────────────┤
 │ Por cobrar hoy · $90.000              │  3. Por cobrar (solo si hay)
@@ -36,23 +36,23 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 ├──────────────────────────────────────┤
 │ Llegan hoy / Salen hoy                │  4. Hoy (tarjetas con una acción)
 ├──────────────────────────────────────┤
-│ Turnos de hoy           + Agregar turno│  5. Turnos
+│ Servicios de hoy   + Agregar servicio │  5. Servicios
 ├──────────────────────────────────────┤
 │ Próximos días                         │  6. Próximos días (3)
-│ ┌ Mañana · viernes 30 oct  5 de 5 ocupadas ┐
+│ ┌ Mañana · viernes 30 oct  5 de 6 ocupadas ┐
 │ │ ⇥ Llega  Andrés Fuentes            › │
 │ │          Cabaña Chañar               │
 │ │ ⇥ Llega  Valentina Díaz            › │
 │ │          Cabaña Cachi                │
 │ │ Todas ocupadas esa noche             │
 │ └──────────────────────────────────────┘
-│ ┌ Pasado mañana · sábado 31 oct  3 de 5 ┐
+│ ┌ Pasado mañana · sábado 31 oct  3 de 6 ┐
 │ │ ⇤ Sale   Camila Soto · Domo Llu Llu ›│
 │ │ ⇤ Sale   Pedro Rojas · Cabaña Antay ›│
 │ │ Libres esa noche:                    │
 │ │ [Domo Llu Llu +] [Cabaña Antay +]    │
 │ └──────────────────────────────────────┘
-│ ┌ domingo 1 nov            3 de 5 ocupadas ┐
+│ ┌ domingo 1 nov            3 de 6 ocupadas ┐
 │ └ …                                    ┘
 ├──────────────────────────────────────┤
 │   Inicio      ( + Nuevo )   Dashboard │  Barra inferior FIJA (MASTER)
@@ -73,7 +73,7 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 - H1 "Hoy" (Fraunces) y debajo la fecha en formato de lista: `jueves 29 oct`.
 
 ### 2. Resumen
-- Frase principal en 20px/700: "3 de 5 ocupadas esta noche".
+- Frase principal en 20px/700: "3 de 6 ocupadas esta noche".
 - Dos botones "Llegan 2" y "Salen 1" que desplazan a su lista. Sin gráficos (eso es del Dashboard).
 
 ### 3. Por cobrar hoy (solo si hay)
@@ -92,8 +92,9 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 - Si una unidad con llegada hoy tiene aseo pendiente, la tarjeta lo dice: "Aseo pendiente antes de la llegada".
 - En la interfaz se dice **"llegada" / "salida"**; "check-in" / "check-out" quedan solo en el código.
 
-### 5. Turnos de hoy
-- Hot tub y quincho: amenidad · unidad y horario (`20:00 – 21:30`), o "Libre". Acción "+ Agregar turno".
+### 5. Servicios de hoy
+- Una fila por recurso: **Quincho**, **Tinaja 1**, **Tinaja 2**. Cada una con sus turnos de hoy (horario
+  `20:00 – 21:30` · cabaña) o "Libre". Acción "+ Agregar servicio" (ver `servicios.md`). Ya no hay hot tub.
 
 ### 6. Próximos días
 - **Por defecto, 3 días** después de hoy. Mostrar muchos días de entrada confunde: los demás se muestran
@@ -104,7 +105,7 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 - Al salir de Inicio y volver, la lista vuelve a 3 días.
 - Una tarjeta por día. Título en formato de lista con etiqueta relativa para los dos primeros:
   `Mañana · viernes 30 oct`, `Pasado mañana · sábado 31 oct`, `domingo 1 nov`.
-  A la derecha: "N de 5 ocupadas".
+  A la derecha: "N de 6 ocupadas".
 - **Filas de movimiento** (botones de 64 px, llevan a la ficha):
   - Verbo con ícono, en un ancho fijo: **Llega** (`log-in`) / **Sale** (`log-out`).
   - Nombre completo del huésped (17px/700) y la unidad debajo (15px).
@@ -166,12 +167,12 @@ Orden por urgencia: lo de hoy primero; los próximos días, al final.
 
 ## 7. Datos que necesita (para el backend)
 
-- Unidades activas (orden fijo: Anko, Llu Llu, Chañar, Antay, Cachi; Liqui cuando vuelva de renovación).
+- Unidades activas (orden fijo: Anko, Llu Llu, Chañar, Antay, Cachi, Liqui).
 - Reservas que se cruzan con [hoy, hoy + 4 días) al cargar; al pedir más días, el tramo siguiente
   (hasta hoy + 32 días): unidad, huésped, n_adultos, n_ninos, canal, llegada, salida,
   hora_estimada, estado, **estado de pago derivado** y **saldo** (calculados, nunca guardados).
 - Tareas de aseo pendientes por unidad.
-- Turnos de amenidades de hoy.
+- Turnos de servicios (quincho y tinajas) de hoy.
 - Hora de la última sincronización exitosa con Beds24.
 
 ## 8. Pendientes

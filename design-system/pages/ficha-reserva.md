@@ -59,8 +59,8 @@ se abren hojas (sheets) o Registrar pago, que siempre vuelve a la ficha.
 │ │ Transferencia · 29-10-2026 · Claudio│ │
 │ │ [        Registrar pago          ] │ │
 │ └────────────────────────────────────┘ │
-│ ┌ Turnos ─────────────── + Agregar ─┐ │  5. Turnos
-│ │ Hot tub · sáb 31 oct 20:00 – 21:30 │ │
+│ ┌ Servicios ──────────── + Agregar ─┐ │  5. Servicios
+│ │ Tinaja 1 · vie 30 oct 20:00–21:30  │ │
 │ └────────────────────────────────────┘ │
 │ ┌ Notas ───────────────── Editar ───┐ │  6. Notas
 │ │ Celebran aniversario.              │ │
@@ -107,6 +107,7 @@ Bloques con ícono, color **y** texto (`role="alert"` los rojos). Como mucho se 
 ### 4. Pagos
 - Tres filas grandes: **Total**, **Pagado**, **Falta** (la palabra "saldo" no se usa en pantalla). Si ya está
   todo pagado: "✓ Pagado completo" en verde en vez de "Falta".
+- Si hay tinajas, el Total se desglosa en una línea apagada: "Estadía $180.000 + tinajas $25.000".
 - Si los pagos superan el total (un extra, permitido en Registrar pago): "Pagado de más: $5.000" en texto
   neutro, sin alarma (SPEC §5 pide alertar; un extra cobrado en el lugar es normal).
 - **Lista de pagos**, del más nuevo al más antiguo. Cada fila (botón de 64px, ›): monto + tipo ("Abono" /
@@ -120,13 +121,15 @@ Bloques con ícono, color **y** texto (`role="alert"` los rojos). Como mucho se 
 - **"Registrar pago"** (botón secundario, ancho completo): lleva a Registrar pago con **esta reserva ya elegida**
   (registrar-pago §1) y vuelve aquí. Solo aparece en reservas directas con algo por cobrar.
 - **Airbnb / Booking:** en vez del botón, el texto "Lo cobra Airbnb. Los pagos llegan solos desde Beds24."
-  Registrar un pago a mano queda en Más opciones (excepciones, registrar-pago §2.3).
+  Registrar un pago a mano queda en Más opciones (excepciones, registrar-pago §2.3). **Excepción:** si tiene
+  tinajas por pagar (se cobran en el lugar), "Registrar pago" sí aparece, por ese monto.
 
-### 5. Turnos
-- Turnos de hot tub y quincho **de esta reserva**: "Hot tub · sáb 31 oct · 20:00 – 21:30" (formato de lista).
-- Acción de texto "+ Agregar" arriba a la derecha. El flujo de agregar turno se especifica aparte (SPEC §3.7);
-  es el mismo que "+ Agregar turno" de Inicio, con la reserva ya elegida.
-- Sin turnos: "Sin turnos."
+### 5. Servicios
+- Quincho y tinajas **de esta reserva**: "Tinaja 1 · vie 30 oct · 20:00 – 21:30 · $25.000" (formato de
+  lista); el quincho dice "sin costo".
+- Acción de texto "+ Agregar" arriba a la derecha: abre Agregar servicio con esta reserva ya elegida
+  (`servicios.md`). Tocar un turno abre una hoja con "Quitar servicio" (con Deshacer).
+- Sin servicios: "Sin servicios."
 
 ### 6. Notas
 - El texto de `notas` de la reserva tal cual, en 17px. Acción de texto "Editar" que lo convierte en un
@@ -140,7 +143,7 @@ Botón de texto que abre una hoja. Va al final porque son cosas poco frecuentes:
 - **Editar reserva** (solo directas): abre el resumen de Nueva reserva (paso 4) con los datos de esta reserva y
   "Cambiar" en cada bloque. Cambiar fechas o cabaña vuelve a consultar la disponibilidad en vivo con Beds24.
   En Airbnb / Booking: "Fechas, cabaña y monto se cambian en Beds24." (SPEC §5); en la app solo se editan hora
-  aproximada, notas y turnos.
+  aproximada, notas y servicios.
 - **Registrar pago** (solo Airbnb / Booking, excepción).
 - **Corregir llegada / salida**: deshace la llegada o la salida registrada después de que pasó el "Deshacer"
   (con confirmación; queda en la auditoría).
@@ -242,7 +245,7 @@ Libera las fechas en Beds24 para que Airbnb y Booking las puedan vender (aprobad
 
 ## 7. Datos y reglas (para el backend)
 
-- Todo se lee de `Reserva`, `Huesped`, `Pago` (con `registrado_por`), `TurnoAmenidad` y `RegistroAuditoria`
+- Todo se lee de `Reserva`, `Huesped`, `Pago` (con `registrado_por`), `TurnoServicio` y `RegistroAuditoria`
   (para "quién y cuándo" de la línea de tiempo). Saldo y estado de pago se **calculan** (SPEC §5).
 - Registrar llegada / salida: cambia `estado`, guarda autor y hora en la auditoría, usa `version` (bloqueo
   optimista). La salida crea la `TareaAseo` en la misma transacción.
@@ -262,4 +265,4 @@ Libera las fechas en Beds24 para que Airbnb y Booking las puedan vender (aprobad
 
 - ~~Cancelar reserva~~ → **aprobado** (29-10-2026): en Más opciones, con confirmación y motivo (§3.1).
 - Devoluciones de dinero al cancelar: por ahora fuera de la app.
-- Flujo de "+ Agregar turno" (SPEC §3.7), compartido con Inicio.
+- ~~Flujo de "+ Agregar turno"~~ → especificado en `servicios.md` (quincho y tinajas).
