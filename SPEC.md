@@ -37,7 +37,7 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
    - Agenda de hoy: ocupación de la noche, llegadas, salidas, monto por cobrar, estado de cada unidad, turnos del día.
    - Próximos 3 días: por cada día, quién llega, quién sale, qué falta cobrar y qué unidades quedan libres.
 2. *(Integrado en Inicio.)*
-3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, turnos, notas.
+3. **Ficha de reserva**: datos del huésped, fechas, estado de la estadía (confirmada → check-in → check-out), pagos, turnos, notas. Permite **cancelar** una reserva directa confirmada: pide confirmación y motivo, y libera las fechas en Beds24.
 4. **Nueva reserva directa**: nombre, teléfono (+56 por defecto), email opcional, nº de huéspedes, unidad, llegada, salida, hora estimada, canal, monto total, abono (medio, monto, comprobante), notas. Verifica disponibilidad en vivo y bloquea el guardado si hay choque.
 5. **Registrar pago**: tipo (abono/saldo, derivado del monto), monto CLP, medio (transferencia, efectivo, Webpay, Mercado Pago; Webpay y Mercado Pago son links de pago con tarjeta), fecha, comprobante opcional (foto o PDF, máx. 10 MB), nota. Los pagos de Airbnb y Booking llegan sincronizados desde Beds24; no se registran a mano salvo excepciones.
 6. **Dashboard mensual**: ocupación, ingreso neto por canal (descontando comisiones), ocupación por unidad, por cobrar, próximos 7 días.
@@ -55,7 +55,7 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
   - Cabaña grande: hasta 5 personas en total, en cualquier combinación.
   - Siempre al menos 1 adulto. Niño = hasta 12 años.
 - `Huesped`: nombre, teléfono (E.164), email opcional.
-- `Reserva`: id_externo (único, de Beds24), unidad (FK, PROTECT), huesped (FK), canal, llegada, salida, hora_estimada, n_adultos, n_ninos, monto_total (CLP entero), estado, notas, version, creado_por, timestamps.
+- `Reserva`: id_externo (único, de Beds24), unidad (FK, PROTECT), huesped (FK), canal, llegada, salida, hora_estimada, n_adultos, n_ninos, monto_total (CLP entero), estado (confirmada / en_curso / terminada / cancelada), motivo_cancelacion, notas, version, creado_por, timestamps.
 - `Pago`: reserva (FK, PROTECT), tipo, medio, monto (CLP entero), fecha, comprobante (opcional), registrado_por, nota.
 - `TurnoAmenidad`: amenidad (hot tub/quincho), reserva (FK opcional), inicio, fin.
 - `TareaAseo`: unidad, reserva, estado, completada_por, completada_en.
@@ -74,6 +74,7 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 - Adultos y niños dentro de la capacidad del tipo de unidad (ver §4); al menos 1 adulto. Se valida también en la base de datos.
 - En reservas directas, el abono se registra con fecha del día en que se crea la reserva.
 - En reservas de Airbnb/Booking, los campos sincronizados (fechas, canal, monto) se editan en Beds24, no en la app.
+- Cancelar: solo reservas directas confirmadas, con motivo obligatorio. Libera las fechas en Beds24 (con reintentos si falla). Los pagos quedan registrados; las devoluciones se hacen fuera de la app. Una reserva cancelada no cuenta en por cobrar ni en el dashboard.
 
 ## 6. Seguridad y privacidad
 
