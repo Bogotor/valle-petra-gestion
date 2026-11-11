@@ -101,7 +101,7 @@ Referencia de pantallas, contenido y flujos: prototipo v0.1 en `docs/mockup/v0.1
 2. Pantallas de la PWA según el prototipo.
 3. Beds24: lectura por polling; después, creación de reservas directas.
 4. Despliegue en mini PC: Docker, Tailscale Serve, backups, logs a Wazuh.
-5. Portafolio: README, ADRs y demo pública separada de producción: otro servidor y otra base de datos, sin secretos compartidos y con datos ficticios que se resetean cada noche. Sus logs van a Wazuh para documentar detecciones reales de escaneos y ataques.
+5. Portafolio: README, ADRs y demo pública separada de producción: otro servidor y otra base de datos, sin secretos compartidos y con datos ficticios que se resetean cada noche. Sus logs van a Wazuh para documentar detecciones reales de escaneos y ataques. Detalle y reglas de aislamiento en ADR 0008.
 
 ## 9. Pendientes por definir
 

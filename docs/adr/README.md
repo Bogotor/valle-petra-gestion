@@ -11,5 +11,6 @@ Cada archivo documenta una decisión: contexto → decisión → alternativas co
 | [0005](0005-pantalla-de-inicio-unificada.md) | Pantalla de Inicio unificada | Aceptada |
 | [0006](0006-direccion-visual-piedra-y-terracota.md) | Dirección visual «Piedra y terracota» | Aceptada |
 | [0007](0007-exportacion-excel-sin-inyeccion-de-formulas.md) | Exportación a Excel sin inyección de fórmulas | Aceptada |
+| [0008](0008-demo-publica-aislada-para-deteccion.md) | Demo pública aislada para practicar detección | Aceptada |
 
 Para una decisión nueva, copia el formato de un ADR existente con el siguiente número.
